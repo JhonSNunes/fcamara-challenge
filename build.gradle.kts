@@ -27,6 +27,7 @@ dependencies {
 	runtimeOnly("com.mysql:mysql-connector-j")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testRuntimeOnly("com.h2database:h2")
 	testCompileOnly("org.projectlombok:lombok")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 	testAnnotationProcessor("org.projectlombok:lombok")
@@ -34,4 +35,9 @@ dependencies {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+	testLogging {
+        events("passed", "skipped", "failed")
+        showStandardStreams = false
+        exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+    }
 }

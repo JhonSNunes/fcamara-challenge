@@ -42,20 +42,30 @@ O Flyway roda automaticamente junto com a aplicação.
 
 A API ficará em `http://localhost:8080` e o Swagger em `http://localhost:8080/swagger-ui.html`.
 
-## Endpoints principais
+## API
 
-| Método | URL                        | Descrição              |
-|--------|----------------------------|------------------------|
-| POST   | `/cartoes`                 | Criar cartão           |
-| GET    | `/cartoes/{numeroCartao}`  | Consultar saldo        |
-| POST   | `/transacoes`              | Autorizar transação    |
+A aplicação expõe três rotas:
 
-Detalhes de request/response e códigos de erro: **[CHALLENGE-README.md](./CHALLENGE-README.md)**.
+- `POST /cartoes` — cadastra um cartão com saldo inicial de R$ 500,00
+- `GET /cartoes/{numeroCartao}` — retorna o saldo do cartão
+- `POST /transacoes` — tenta autorizar uma transação e debita o valor, se aprovada
+
+Contratos completos (payloads, status HTTP e códigos de erro) estão no **[CHALLENGE-README.md](./CHALLENGE-README.md)**.
 
 ## Testes
 
+Os testes de integração utilizam **H2 em memória**.
+
+### Executar todos os testes
+
 ```bash
-./gradlew test
+./gradlew clean test
 ```
 
-> Os testes exigem o MySQL em execução.
+### Testes unitários
+
+Validam regras de negócio de forma isolada, com **JUnit 5** e **Mockito**.
+
+### Testes de integração
+
+Validam os contratos dos endpoints via **MockMvc**, com contexto Spring e banco H2.
