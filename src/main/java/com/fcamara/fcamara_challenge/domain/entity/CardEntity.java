@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Getter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -50,5 +51,11 @@ public class CardEntity {
         card.createdAt = createdAt;
         card.updatedAt = updatedAt;
         return card;
+    }
+
+    public void debit(BigDecimal amount) {
+        Objects.requireNonNull(amount, "Amount must not be null");
+        balance = balance.subtract(amount);
+        updatedAt = LocalDateTime.now();
     }
 }

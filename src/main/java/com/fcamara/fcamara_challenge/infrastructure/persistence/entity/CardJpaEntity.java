@@ -18,7 +18,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Entity
 @Table(name = "card")
@@ -49,10 +48,4 @@ public class CardJpaEntity {
     @LastModifiedDate
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
-
-    public void debit(BigDecimal amount) {
-        Objects.requireNonNull(amount, "Amount must not be null");
-
-        balance = balance.subtract(amount);
-    }
 }
